@@ -1,0 +1,86 @@
+{% load static %}
+<!-- divider  -->
+
+<style>
+  .specials_offcanvas {
+    height: 90vh !important;
+    border-top-right-radius: 20px;
+    border-top-left-radius: 20px;
+    overflow: hidden; /* Add this to hide overflow text */
+  }
+
+  /* Add a class to style the description text */
+  .description_text {
+    max-width: 100%; /* Adjust the maximum width as needed */
+    white-space: normal; /* Allow text to wrap */
+  }
+
+  .details_image {
+    vertical-align: middle;
+    width: 160px;
+    height: 160px;
+    border-radius: 50%;
+    object-fit: cover;
+  }
+
+  .ingredients_icon {
+    margin-right: 12px;
+  }
+
+  .header_icons {
+    font-size: 25px;
+  }
+
+  .offcanvas_special_price {
+    font-size: 14px;
+    text-decoration: line-through;
+    margin-left: 12px;
+  }
+</style>
+
+<div
+  class="offcanvas offcanvas-bottom specials_offcanvas"
+  tabindex="-1"
+  id="specialDetailsOffcanvas{{data.id}}"
+  aria-labelledby="offcanvasExampleLabel"
+>
+  <div class="offcanvas-header">
+    <a data-bs-dismiss="offcanvas" aria-label="Close">
+      <i class="bi bi-chevron-left header_icons"></i>
+    </a>
+    <h6 class="fw-bold">Special</h6>
+    <i class="bi bi-plus-circle-fill header_icons"></i>
+  </div>
+  <div class="offcanvas-body">
+    <center>
+      <img
+        src="{{data.item.image.url}}"
+        alt="item image"
+        class="details_image mb-5"
+      />
+    </center>
+    <h6 class="item_sub_title mb-2 fw-bold">{{data.item.sub_title}}</h6>
+    <h4 class="fw-bold">{{data.item.name}}</h4>
+    <h4 class="fw-bold mb-4" style="font-size: 17px">
+      R{{data.special_price}}
+      <span class="offcanvas_special_price text-secondary"
+        >R{{data.item.price}}</span
+      >
+    </h4>
+    <p class="mb-5 text-secondary description_text">
+      {{data.item.description}}
+    </p>
+
+    <h6 class="fw-bold mb-3">Ingredients</h6>
+    {% for ingredient in data.item.ingredients.all %}
+    <div class="d-flex align-items-center mb-3">
+      <i class="bi bi-arrow-right-circle-fill ingredients_icon"></i>
+      <p class="mb-0">{{ingredient.name}}</p>
+    </div>
+    {% endfor %}
+    <!-- end item  -->
+
+    <!-- ======= bottom spacing  ======= -->
+    <div style="height: 60px; width: 100%"></div>
+  </div>
+</div>

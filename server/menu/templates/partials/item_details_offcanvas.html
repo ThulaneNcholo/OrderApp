@@ -1,0 +1,65 @@
+{% load static %}
+<!-- divider  -->
+
+<style>
+  .item_details_offcanvas {
+    height: 90vh !important;
+    border-top-right-radius: 20px;
+    border-top-left-radius: 20px;
+  }
+
+  .details_image {
+    vertical-align: middle;
+    width: 160px;
+    height: 160px;
+    border-radius: 50%;
+    object-fit: cover;
+  }
+
+  .ingredients_icon {
+    margin-right: 12px;
+  }
+
+  .header_icons {
+    font-size: 25px;
+  }
+</style>
+
+<div
+  class="offcanvas offcanvas-bottom item_details_offcanvas"
+  tabindex="-1"
+  id="itemDetailsOffcanvas{{data.id}}"
+  aria-labelledby="offcanvasExampleLabel"
+>
+  <div class="offcanvas-header">
+    <a data-bs-dismiss="offcanvas" aria-label="Close">
+      <i class="bi bi-chevron-left header_icons"></i>
+    </a>
+    <i class="bi bi-plus-circle-fill header_icons"></i>
+  </div>
+  <div class="offcanvas-body">
+    <center>
+      <img
+        src="{{data.image.url}}"
+        alt="item image"
+        class="details_image mb-5"
+      />
+    </center>
+    <h6 class="item_sub_title mb-2 fw-bold">{{data.sub_title}}</h6>
+    <h4 class="fw-bold">{{data.name}}</h4>
+    <h4 class="fw-bold mb-4" style="font-size: 17px">R{{data.price}}</h4>
+    <p class="mb-5 text-secondary">{{data.description}}</p>
+
+    <h6 class="fw-bold mb-3">Ingredients</h6>
+    {% for ingredient in data.ingredients.all %}
+    <div class="d-flex align-items-center mb-3">
+      <i class="bi bi-arrow-right-circle-fill ingredients_icon"></i>
+      <p class="mb-0">{{ingredient.name}}</p>
+    </div>
+    {% endfor %}
+    <!-- end item  -->
+
+    <!-- ======= bottom spacing  ======= -->
+    <div style="height: 60px; width: 100%"></div>
+  </div>
+</div>

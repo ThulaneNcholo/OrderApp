@@ -1,0 +1,71 @@
+<style>
+  .ingredients_offcanvas {
+    height: 90vh !important;
+    border-top-right-radius: 20px;
+    border-top-left-radius: 20px;
+  }
+
+  .add_cart_btn {
+    width: 70%;
+  }
+</style>
+
+<div
+  class="offcanvas offcanvas-bottom ingredients_offcanvas"
+  tabindex="-1"
+  id="editIngredientOffcanvas{{data.id}}"
+  aria-labelledby="offcanvasExampleLabel"
+>
+  <div class="offcanvas-header">
+    <h5 class="offcanvas-title" id="offcanvasExampleLabel">
+      {{data.item.name}}
+    </h5>
+    <button
+      type="button"
+      class="btn-close text-reset"
+      data-bs-dismiss="offcanvas"
+      aria-label="Close"
+    ></button>
+  </div>
+  <div class="offcanvas-body">
+    <!-- ======= Ingredients  ======= -->
+    <h5 class="fw-bold mb-3">Ingredients</h5>
+    {% for ingredient in data.item.ingredients.all %}
+    <div class="row mb-3">
+      <div class="col">
+        <p class="mb-0">{{ingredient.name}}</p>
+      </div>
+      <div class="col-2">
+        <i class="bi bi-trash3-fill text-danger"></i>
+      </div>
+    </div>
+    {% endfor %}
+
+    <!-- ======= Removed Ingredients  ======= -->
+    <h5 class="fw-bold mt-5 mb-3">Removed Ingredients</h5>
+    <div class="row mb-3">
+      <div class="col">
+        <p class="mb-0">8 oz. beef tenderloin</p>
+      </div>
+      <div class="col-2">
+        <i class="bi bi-plus-circle-fill text-success"></i>
+      </div>
+    </div>
+
+    <!-- ======= Notes  ======= -->
+    <div class="mb-3 mt-5">
+      <h5 class="fw-bold mt-5 mb-3">Leave Note</h5>
+      <textarea
+        class="form-control"
+        id="exampleFormControlTextarea1"
+        rows="4"
+      ></textarea>
+
+      <center>
+        <button class="btn btn-dark rounded-pill py-2 add_cart_btn mt-4">
+          Update
+        </button>
+      </center>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,49 @@
+{% for data in orders %}
+<div class="cart_card p-3 mb-3">
+  <div class="row">
+    <div class="col">
+      <img
+        src="{{data.item.image.url}}"
+        alt="restaurant specials"
+        class="cart_image"
+      />
+    </div>
+    <div class="col-7">
+      <h4 class="fw-bold" style="font-size: 16px">{{data.item.name}}</h4>
+      <h4 class="fw-bold price" style="font-size: 16px">
+        R{{data.price}} {{data.status}}
+      </h4>
+      <div class="row mt-3">
+        <div class="col">
+          <button
+            class="btn btn-dark edit_btn rounded-pill"
+            data-bs-toggle="offcanvas"
+            data-bs-target="#editIngredientOffcanvas{{data.id}}"
+            aria-controls="offcanvasExample"
+          >
+            edit
+          </button>
+        </div>
+        <div class="col">
+          <form method="POST">
+            {% csrf_token %}
+
+            <button
+              type="submit"
+              class="btn btn-outline-dark remove_btn rounded-pill"
+              hx-post="{% url 'remove-order' data.id %}"
+              hx-target="#orders"
+              onclick="DecreaseOrderQty()"
+            >
+              remove
+            </button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- ======= Edit Ingredients Offcanvas  ======= -->
+{% include 'partials/edit_ingredients.html' %}
+<!-- divider  -->
+{% endfor %}

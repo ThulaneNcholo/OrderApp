@@ -1,0 +1,96 @@
+<style>
+  :root {
+    --primary_color: #0b0c17;
+    --grey_text_color: #b6b7c0;
+    --card_background: #ededef;
+  }
+
+  .cart_offcanvas {
+    height: 20vh;
+    border-top-right-radius: 20px;
+    border-top-left-radius: 20px;
+  }
+
+  .quantity_icons {
+    font-size: 25px;
+  }
+
+  .add_cart_btn {
+    width: 70%;
+  }
+
+  .qty_btn {
+    background-color: transparent;
+    border: 0px;
+  }
+</style>
+
+<div
+  class="offcanvas offcanvas-bottom cart_offcanvas"
+  tabindex="-1"
+  id="addCartOffcanvas{{data.id}}"
+  aria-labelledby="offcanvasExampleLabel"
+>
+  <div class="offcanvas-header">
+    <h5 class="offcanvas-title fw-bold" id="offcanvasExampleLabel">
+      {{data.name}}
+    </h5>
+    <!-- <button class="position-relative cart_btn" id="itemCart{{data.id}}">
+      {% include 'order/item_in_cart.html' %}
+    </button> -->
+
+    <button
+      type="button"
+      class="btn-close text-reset"
+      data-bs-dismiss="offcanvas"
+      aria-label="Close"
+    ></button>
+  </div>
+  <div class="offcanvas-body pt-3">
+    <form method="POST">
+      {% csrf_token %}
+
+      <div class="d-flex justify-content-center mb-4">
+        <button
+          type="submit"
+          class="qty_btn"
+          hx-post="{% url 'decrease-qty' data.id %}"
+          hx-target="#quantity{{data.id}}"
+          onclick="DecreaseOrderQty()"
+        >
+          <i class="bi bi-dash-circle-fill quantity_icons"></i>
+        </button>
+
+        <input type="text" id="{{data.name}}" name="orderUser" hidden />
+        <input
+          type="text"
+          id="OrderTable{{data.name}}"
+          name="orderTable"
+          hidden
+        />
+
+        <div id="quantity{{data.id}}">{% include 'order/quantity.html' %}</div>
+        <button
+          type="submit"
+          class="qty_btn"
+          hx-post="{% url 'increase-qty' data.id %}"
+          hx-target="#quantity{{data.id}}"
+          onclick="IncreaseOrderQty(); createUser('{{ data.name }}');"
+        >
+          <i class="bi bi-plus-circle-fill quantity_icons"></i>
+        </button>
+      </div>
+
+      <!-- <center>
+        <button
+          type="submit"
+          class="btn btn-dark rounded-pill py-2 add_cart_btn"
+          hx-post="{% url 'update-cart' data.id %}"
+          hx-target="#itemCart{{data.id}}"
+        >
+          Add to Cart
+        </button>
+      </center> -->
+    </form>
+  </div>
+</div>

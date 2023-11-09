@@ -1,0 +1,75 @@
+{% extends 'client/base.html' %}
+<!-- divider  -->
+{% load static %}
+<!-- divider  -->
+{% block content %}
+<style>
+  :root {
+    --primary_color: #0b0c17;
+    --grey_text_color: #b6b7c0;
+    --card_background: #ededef;
+  }
+
+  .cart_card {
+    background-color: var(--card_background);
+    border-radius: 15px;
+  }
+
+  .cart_image {
+    vertical-align: middle;
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    object-fit: cover;
+  }
+
+  .delete_item {
+    font-size: 22px;
+  }
+
+  .edit_btn {
+    width: 100%;
+  }
+
+  .remove_btn {
+    width: 100%;
+  }
+</style>
+
+<div class="container">
+  <div class="row mb-4">
+    <div class="col">
+      <h4 class="fw-bold">Order</h4>
+    </div>
+    <div class="col d-flex justify-content-end">
+      <h4 class="fw-bold">R{{total}}</h4>
+    </div>
+  </div>
+
+  <form method="POST">
+    {% csrf_token %}
+    <input type="text" value="{{userID}}" name="currentUser" hidden />
+    <!-- <center>
+      <button
+        class="btn btn-dark rounded-pill mb-4 py-2"
+        style="width: 70%"
+        type="submit"
+        class="qty_btn"
+        hx-post="{% url 'place-order' %}"
+        hx-target="#orders"
+      >
+        place order
+      </button>
+    </center> -->
+  </form>
+
+  <div id="orders">
+    <!-- ======= cart Order  ======= -->
+    {% include 'partials/orders.html' %}
+  </div>
+</div>
+
+<!-- ======= bottom spacing  ======= -->
+<div style="height: 200px; width: 100%"></div>
+
+{% endblock %}
